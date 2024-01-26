@@ -19,6 +19,8 @@ typedef struct
 	uint8_t GPIO_PinMode;
 	uint8_t GPIO_PinInMode;
 	uint8_t GPIO_PinOutMode;
+	uint8_t GPIO_PinPuPdControl;
+
 
 }GPIO_PinConfig_t;
 
@@ -76,6 +78,13 @@ typedef struct
 #define GPIO_IP_TYPE_AM		0
 #define GPIO_IP_TYPE_FI		1
 #define GPIO_IP_TYPE_PUPD	2
+
+/*
+ * GPIO pin pull-up pull-down controls
+ */
+#define PULLUP				1
+#define PULLDOWN			0
+
 
 
 /*
