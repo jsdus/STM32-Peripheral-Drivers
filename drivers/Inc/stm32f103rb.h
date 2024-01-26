@@ -62,7 +62,7 @@
  * Base addresses of peripherals which are hanging on AHB bus
  */
 
-#define RCC_BASEADDR					(AHBPERIPH_BASE + 0x1000)
+#define RCC_BASEADDR					0x40021000U
 
 
 typedef struct
@@ -183,6 +183,16 @@ typedef struct
 #define UART4_PCLK_DI()		(RCC->APB1ENR &= (1 << 19))
 #define UART5_PCLK_DI()		(RCC->APB1ENR &= (1 << 20))
 
+/*
+ * Macros to reset GPIOx peripherals
+ */
+
+#define GPIOA_REG_RESET()	do{ (RCC->APB2RSTR |= (1 << 2)); (RCC->APB2RSTR &= ~(1 << 2)); }while(0)
+#define GPIOB_REG_RESET()	do{ (RCC->APB2RSTR |= (1 << 3)); (RCC->APB2RSTR &= ~(1 << 3)); }while(0)
+#define GPIOC_REG_RESET()	do{ (RCC->APB2RSTR |= (1 << 4)); (RCC->APB2RSTR &= ~(1 << 4)); }while(0)
+#define GPIOD_REG_RESET()	do{ (RCC->APB2RSTR |= (1 << 5)); (RCC->APB2RSTR &= ~(1 << 5)); }while(0)
+#define GPIOE_REG_RESET()	do{ (RCC->APB2RSTR |= (1 << 6)); (RCC->APB2RSTR &= ~(1 << 6)); }while(0)
+
 //generic macros
 #define ENABLE 			1
 #define DISABLE 		0
@@ -191,4 +201,5 @@ typedef struct
 #define GPIO_PIN_SET	SET
 #define GPIO_PIN_RESET	RESET
 
+#include "stm32f103rb_gpio_driver.h"
 #endif /* INC_STM32F103RB_H_ */
