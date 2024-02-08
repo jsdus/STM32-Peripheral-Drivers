@@ -201,5 +201,28 @@ typedef struct
 #define GPIO_PIN_SET	SET
 #define GPIO_PIN_RESET	RESET
 
+//start of SPI
+
+//Defining base address of SPI
+
+typedef struct
+{
+	__vo uint32_t CR1;
+	__vo uint32_t CR2;
+	__vo uint32_t SR;
+	__vo uint32_t DR;
+	__vo uint32_t CRCPR;
+	__vo uint32_t RXCRCR;
+	__vo uint32_t TXCRCR;
+	__vo uint32_t I2SCFGR;
+	__vo uint32_t I2SPR;
+}SPI_RegDef_t;
+
+#define SPI1	((SPI_RegDef_t*)SPI1_BASEADDR)
+#define SPI2	((SPI_RegDef_t*)SPI2_BASEADDR)
+#define SPI3	((SPI_RegDef_t*)SPI3_BASEADDR)
+
 #include "stm32f103rb_gpio_driver.h"
+#include "stm32f103rb_spi_driver.h"
 #endif /* INC_STM32F103RB_H_ */
+
