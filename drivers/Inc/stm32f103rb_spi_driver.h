@@ -15,6 +15,7 @@ typedef struct
 	uint8_t SPI_SSM;
 }SPI_config_t;
 
+
 //SPI Handle structure
 
 typedef struct
