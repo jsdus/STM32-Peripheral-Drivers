@@ -201,7 +201,7 @@ typedef struct
 #define GPIO_PIN_SET	SET
 #define GPIO_PIN_RESET	RESET
 #define FLAG_RESET		RESET
-#define FLAG_RESET		SET
+#define FLAG_SET		SET
 
 //start of SPI
 

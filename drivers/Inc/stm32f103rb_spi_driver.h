@@ -85,4 +85,7 @@ void SPI_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi);
 void SPI_IRQHandling(SPI_Handle_t *pHandle);
 
 //Orhter Peripheral Controls
+
+void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
+void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
 #endif /* INC_STM32F103RB_SPI_DRIVER_H_ */

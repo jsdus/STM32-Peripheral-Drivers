@@ -4,6 +4,10 @@
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 {
 	uint32_t temp=0;  //temporary register
+
+	//enable periclock
+
+	GPIO_PeriClockControl(pGPIOHandle->pGPIOx, ENABLE);
 	pGPIOHandle->pGPIOx->CRL = 0;
 	pGPIOHandle->pGPIOx->CRH = 0;
 
