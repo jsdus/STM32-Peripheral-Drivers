@@ -72,6 +72,8 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx)
 		{
 			SPI3_REG_RESET();
 		}
+
+	SPI_PeripheralControl(pSPIx, DISABLE);
 }
 
 uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName)
