@@ -64,19 +64,13 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx)
 {
 	if(pSPIx == SPI1)
 		{
-			SPI_REG_RESET();
-		}else if (pGPIOx == GPIOB)
+			SPI1_REG_RESET();
+		}else if (pSPIx == SPI2)
 		{
-			GPIOB_REG_RESET();
-		}else if (pGPIOx == GPIOC)
+			SPI2_REG_RESET();
+		}else if (pSPIx == SPI3)
 		{
-			GPIOC_REG_RESET();
-		}else if (pGPIOx == GPIOD)
-		{
-			GPIOD_REG_RESET();
-		}else if (pGPIOx == GPIOE)
-		{
-			GPIOE_REG_RESET();
+			SPI3_REG_RESET();
 		}
 }
 
