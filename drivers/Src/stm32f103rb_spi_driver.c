@@ -62,7 +62,22 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)
 
 void SPI_DeInit(SPI_RegDef_t *pSPIx)
 {
-
+	if(pSPIx == SPI1)
+		{
+			SPI_REG_RESET();
+		}else if (pGPIOx == GPIOB)
+		{
+			GPIOB_REG_RESET();
+		}else if (pGPIOx == GPIOC)
+		{
+			GPIOC_REG_RESET();
+		}else if (pGPIOx == GPIOD)
+		{
+			GPIOD_REG_RESET();
+		}else if (pGPIOx == GPIOE)
+		{
+			GPIOE_REG_RESET();
+		}
 }
 
 uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName)
