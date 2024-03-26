@@ -142,8 +142,12 @@ uint32_t RCC_GetPCLK1Value(void)
 void I2C_Init(I2C_Handle_t *pI2CHandle)
 {
     uint32_t tempreg = 0;
+
+    //enable clock
+    I2C_PeriClockControl(pI2CHandle->pI2Cx, ENABLE);
+
     //ACK control
-    tempreg |= pI2CHandle->I2C_Config.I2C_ACKControl << 10; 
+    tempreg |= pI2CHandle->I2C_Config.I2C_ACKControl << 10;
     pI2CHandle->pI2Cx->CR1 = tempreg;
 
     //FREQ
@@ -155,7 +159,7 @@ void I2C_Init(I2C_Handle_t *pI2CHandle)
     tempreg |= pI2CHandle -> I2C_Config.I2C_DeviceAddress << 1;
     tempreg |= (1<<14);
     pI2CHandle -> pI2Cx -> OAR1 = tempreg;
-    
+
     //CCR calc
     uint16_t ccr_value = 0;
     tempreg = 0;
@@ -170,7 +174,7 @@ void I2C_Init(I2C_Handle_t *pI2CHandle)
         //fast mode
         tempreg |= (1<<15);
         tempreg |= (pI2CHandle -> I2C_Config.I2C_FMDutyCycle << 14);
-        
+
         if(pI2CHandle->I2C_Config.I2C_FMDutyCycle == I2C_FM_DUTY_2)
         {
             ccr_value = RCC_GetPCLK1Value()/(3*pI2CHandle -> I2C_Config.I2C_SCLSpeed);
@@ -199,7 +203,15 @@ void I2C_Init(I2C_Handle_t *pI2CHandle)
 }
 void I2C_DeInit(I2C_RegDef_t *pI2Cx)
 {
+    if(pI2Cx == I2C1)
+            {
+                I2C1_REG_RESET();
+            }else if (pI2Cx == I2C2)
+            {
+                I2C2_REG_RESET();
+            }
 
+        I2C_PeripheralControl(pI2Cx, DISABLE);
 }
 
 uint8_t I2C_GetFlagStatus(I2C_RegDef_t *pI2Cx, uint32_t FlagName)
@@ -218,7 +230,7 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxbuffer, uint32_t L
 
     //wait until SB set
     while(! I2C_GetFlagStatus(pI2CHandle->pI2Cx,I2C_SB_FLAG));
-    
+
     //Send Addr of slave
     I2C_ExecuteAddressPhaseWrite(pI2CHandle ->pI2Cx,SlaveAddr);
 
@@ -248,7 +260,7 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxbuffer, uint32_t L
     {
         I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
     }
-    
+
 
 
 }
@@ -267,7 +279,7 @@ void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t
     //wait until addr phase is completed
     while(! I2C_GetFlagStatus(pI2CHandle->pI2Cx,I2C_ADDR_FLAG));
 
-    
+
     if (Len == 1)
     {
         //disable acking
@@ -312,7 +324,7 @@ void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t
                 {
                     I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
                 }
-                
+
             }
 
             //read data into buffer
@@ -329,8 +341,6 @@ void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t
     {
         I2C_ManageAcking(pI2CHandle->pI2Cx, I2C_ACK_ENABLE);
     }
-    
+
 
 }
-
-
